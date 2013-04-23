@@ -3,10 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="description" content="" />
-
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
   <title>jquery-image-loader demo</title>
+  
+  <style type="text/css" media="screen">
+  
+  html,
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5em;
+}
+body {
+  background-color: #eeeeee;
+  font-family: sans-serif;
+}
+#wrapper {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 600px;
+  background-color: #ffffff;
+}
+.example-block {
+  margin-bottom: 50px;
+}
+p {
+  font-family: Monaco, "Lucida Console", monospace;
+  margin: 2em 0;
+}
+a {
+  color: #0000EE !important;
+}
+a:hover {
+  text-decoration: none;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: Monaco, "Lucida Console", monospace;
+  overflow: hidden;
+}
+nav li {
+  float: left;
+  width: 50%;
+}
+pre {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  background-color: #efefef;
+}
+footer {
+  font-size: 11px;
+  padding: 20px;
+  text-align: center;
+}
 
-  <link rel="stylesheet" href="demo.css" />
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  border-bottom: 1px solid #eeeeee;
+  color: #bbbbbb;
+  font-style: italic;
+  font-weight: normal;
+  padding: 7px;
+  text-align: left;
+}
+
+table td {
+  border-bottom: 1px dotted #eeeeee;
+  font-size: 14px;
+  padding: 7px;
+  vertical-align: top;
+}
+
+.console {
+  background-color: #eeeeee;
+  border: 1px solid #aaaaaa;
+  color: #666666;
+  font-family: Monaco, "Lucida Console", monospace;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.console .error {
+  color: #FF0000;
+}
+
+  </style>
   <style type="text/css" media="screen">
     .images {
       margin: 0 0 10px 0;
@@ -24,8 +111,47 @@
   <script>
     google.load("jquery", "1");
   </script>
-  <script src="jquery-image-loader-min.js"></script>
+  
+ <!-- <script src="jquery-image-loader-min.js">
+  
+  
+  </script>
+-->
+<script type="text/javascript" >
+/*
 
+ jquery-image-loader
+
+ Created at: 2011-12-01 08:32:01 +0200
+ Author: Yves Van Broekhoven
+ Version: 1.1.9
+ https://github.com/mrhenry/jquery-image-loader
+
+ How to use:
+
+ HTML:
+
+ <div class="wrapper">
+   <img data-src="url-to-image.jpg">
+ </div>
+
+
+ JS:
+
+ $('.wrapper').loadImages({
+   imgLoadedClb: function(){},
+   allLoadedClb: function(){},
+   imgErrorClb:  function(){},
+   noImgClb:     function(){},
+   dataAttr:     'src'
+ });
+
+*/
+(function(b){var j,i,k;b.fn.loadImages=function(c){c=b.extend({},b.fn.loadImages.defaults,c);this.each(function(){var d=this,a=b(d),e;e=a.is("img[data-"+c.dataAttr+"]")?a:a.find("img[data-"+c.dataAttr+"]");1>e.length&&b.isFunction(c.noImgClb)?c.noImgClb.call(d):(a.data("dfd",b.Deferred()),a.data("options",c),a.data("total_images_count",e.length),a.data("processed_count",0),a.data("failed_count",0),b.when(j.call(d,e)).then(function(){b.isFunction(c.allLoadedClb)&&c.allLoadedClb.call(d)}))});return this};
+j=function(c){var d=this,a=b(d),e=a.data("options"),a=a.data("dfd");c.each(function(){var a=b(this);a.load(function(){i.call(d,a[0],"success")}).error(function(){i.call(d,a[0],"error")}).attr("src",a.data(e.dataAttr))});return a.promise()};i=function(c,d){var a=b(this),e=a.data("dfd"),f=a.data("options"),g=a.data("processed_count")+1,h=a.data("total_images_count");a.data("processed_count",g);"success"===d&&b.isFunction(f.imgLoadedClb)&&f.imgLoadedClb.call(c,g,h);"error"===d&&(a.data("failed_count",
+a.data("failed_count")+1),b(this).unbind("load"),b.isFunction(f.imgErrorClb)&&f.imgErrorClb.call(c,g,h));g===h&&(a.data("failed_count")===h?(b.isFunction(f.noImgClb)&&f.noImgClb.call(this),e.reject()):e.resolve(),k.call(this))};k=function(){b(this).removeData("dfd","options","total_images_count","processed_count","failed_count")};b.fn.loadImages.defaults={imgLoadedClb:!1,allLoadedClb:!1,imgErrorClb:!1,noImgClb:!1,dataAttr:"src"}})(jQuery);
+
+</script>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -43,77 +169,14 @@
 <body>
 
   <div id="wrapper">
-    <h1>jQuery image loader</h1>
-    <p>Load images asynchronously with ease. This plugin seeks for all images with <em>data-src</em> attributes inside a wrapper or run the plugin on an image tag itself.
-    </p>
-    <p>The <em>data</em> attribute will be copied to the <em>src</em> attribute, which gives you loading & error events to streamline your flow.</p>
-    <h2>Callbacks</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>callback</th>
-          <th>description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><em>imgLoadedClb</em></td>
-          <td>Triggered when an image is loaded. ('this' is the loaded image)</td>
-        </tr>
-        <tr>
-          <td><em>allLoadedClb</em></td>
-          <td>Triggered when all images are loaded. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
-        </tr>
-        <tr>
-          <td><em>imgErrorClb</em></td>
-          <td>Triggered when the image gives an error. Useful when you want to add a placeholder instead or remove it. ('this' is the loaded image)</td>
-        </tr>
-        <tr>
-          <td><em>noImgClb</em></td>
-          <td>Triggered when there are no image found with data-src attributes, or when all images give an error. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
-        </tr>
-        <tr>
-          <td><em>dataAttr</em></td>
-          <td>The data attribute that contains the source. Default 'src'.</td>
-        </tr>
-      </tbody>
-    </table>
-    <h2>How to use?</h2>
-    <h3>HTML</h3>
-    <pre>
-&lt;div class=&quot;images&quot;&gt;
-  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
-  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
-  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
-&lt;/div&gt;</pre>
-    <h3>Javascript to load images inside wrapper</h3>
-    <pre>
-$('.images').loadImages({
-  imgLoadedClb: function(){},
-  allLoadedClb: function(){},
-  imgErrorClb:  function(){},
-  noImgClb:     function(){},
-  dataAttr:     'src'
-});</pre>
-    <h3>Javascript to load one image</h3>
-    <pre>
-$('.images img').first().loadImages({
-  imgLoadedClb: function(){},
-  allLoadedClb: function(){},
-  imgErrorClb:  function(){},
-  noImgClb:     function(){},
-  dataAttr:     'src'
-});
-    </pre>
+   
     <br />
     <h2>Examples</h2>
     <h3>Load all images in div</h3>
     <p><a href="#" class="start-example-1">Do it!</a></p>
     <div class="images">
-      <img data-src="http://farm8.staticflickr.com/7067/7038298347_0481d2a7e3_o.jpg" alt="" />
-      <img data-src="http://farm8.staticflickr.com/7199/7038298927_bfc3993208_b.jpg" alt="" />
-      <img data-src="this-is-an-invalid-image-url" alt="" />
-      <img data-src="http://farm8.staticflickr.com/7094/7038299687_2a558b9349_b.jpg" alt="" />
+      <img data-src="http://farm3.static.flickr.com/2786/4096957892_756a988214_o.jpg?some=some" alt="" />
+      <img data-src="http://namethatplant.files.wordpress.com/2010/09/watermark_35.jpg?some=some" alt="" />
     </div>
     <div id="console-example-1" class="console"></div>
     <script>
@@ -121,6 +184,8 @@ $('.images img').first().loadImages({
         var $console = $('#console-example-1');
 
         $('.start-example-1').on('click', function(event){
+  	  var d = new Date();
+		  $console.append( $('<div></div>').text("[Started @ " + d ) );
           event.preventDefault();
 
           if ( $(this).hasClass('clicked') ) {
@@ -131,10 +196,14 @@ $('.images img').first().loadImages({
 
           $('.images').loadImages({
             imgLoadedClb: function(){
-              $console.append( $('<div></div>').text("[image loaded] " + $(this).data('src')) );
+			  var f = new Date();
+              $console.append( $('<div></div>').text("[image loaded] " + $(this).data('src')));
+			  $console.append( $('<div></div>').text("Time taken to load the image :" + Math.abs(f-d) + " Milli Seconds"));
             },
             allLoadedClb: function(){
-              $console.append( $('<div></div>').text("[all images loaded] " + $(this).attr('class')) );
+			  var e = new Date();
+              $console.append( $('<div></div>').text("[all images loaded] " + $(this).attr('class')));
+			  $console.append( $('<div></div>').text("Time taken to load All Images :" + Math.abs(e-d) + " Milli Seconds"));
             },
             imgErrorClb:  function(){
               $console.append( $('<div class="error"></div>').text("[image error] " + $(this).data('src')) );
@@ -149,10 +218,8 @@ $('.images img').first().loadImages({
       });
     </script>
   </div>
-  <footer>
-    Created by <a href="http://mrhenry.be">Mr. Henry</a>.
-  </footer>
 
-  <a href="https://github.com/mrhenry/jquery-image-loader"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
+  
 </body>
 </html>
