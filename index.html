@@ -1,93 +1,158 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="" />
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <title>jquery-image-loader demo</title>
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>Imageloadertest by talk2bala</title>
-  </head>
+  <link rel="stylesheet" href="demo.css" />
+  <style type="text/css" media="screen">
+    .images {
+      margin: 0 0 10px 0;
+      padding: 10px 10px 0 10px;
+      border: 1px solid #CCCCCC;
+    }
+    .images img {
+      display: inline-block;
+      margin: 0 2.5% 2.5% 0;
+      width: 20%;
+    }
+  </style>
 
-  <body>
-    <a id="forkme_banner" href="https://github.com/talk2bala/ImageLoaderTest">View on GitHub</a>
-    <div class="shell">
+  <script src="http://www.google.com/jsapi?key="></script>
+  <script>
+    google.load("jquery", "1");
+  </script>
+  <script src="jquery-image-loader-min.js"></script>
 
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Imageloadertest</h1>
-            <h2>A test app to load image and calculate the time.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
+  <script type="text/javascript">
 
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/talk2bala/ImageLoaderTest/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/talk2bala/ImageLoaderTest/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32582056-2']);
+    _gaq.push(['_trackPageview']);
 
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
 
-      <span class="banner-fix"></span>
+  </script>
+</head>
+<body>
 
-
-      <section id="main_content">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/talk2bala">talk2bala</a> can be found on <a href="https://github.com/talk2bala/ImageLoaderTest">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
+  <div id="wrapper">
+    <h1>jQuery image loader</h1>
+    <p>Load images asynchronously with ease. This plugin seeks for all images with <em>data-src</em> attributes inside a wrapper or run the plugin on an image tag itself.
+    </p>
+    <p>The <em>data</em> attribute will be copied to the <em>src</em> attribute, which gives you loading & error events to streamline your flow.</p>
+    <h2>Callbacks</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>callback</th>
+          <th>description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><em>imgLoadedClb</em></td>
+          <td>Triggered when an image is loaded. ('this' is the loaded image)</td>
+        </tr>
+        <tr>
+          <td><em>allLoadedClb</em></td>
+          <td>Triggered when all images are loaded. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
+        </tr>
+        <tr>
+          <td><em>imgErrorClb</em></td>
+          <td>Triggered when the image gives an error. Useful when you want to add a placeholder instead or remove it. ('this' is the loaded image)</td>
+        </tr>
+        <tr>
+          <td><em>noImgClb</em></td>
+          <td>Triggered when there are no image found with data-src attributes, or when all images give an error. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
+        </tr>
+        <tr>
+          <td><em>dataAttr</em></td>
+          <td>The data attribute that contains the source. Default 'src'.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>How to use?</h2>
+    <h3>HTML</h3>
+    <pre>
+&lt;div class=&quot;images&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;</pre>
+    <h3>Javascript to load images inside wrapper</h3>
+    <pre>
+$('.images').loadImages({
+  imgLoadedClb: function(){},
+  allLoadedClb: function(){},
+  imgErrorClb:  function(){},
+  noImgClb:     function(){},
+  dataAttr:     'src'
+});</pre>
+    <h3>Javascript to load one image</h3>
+    <pre>
+$('.images img').first().loadImages({
+  imgLoadedClb: function(){},
+  allLoadedClb: function(){},
+  imgErrorClb:  function(){},
+  noImgClb:     function(){},
+  dataAttr:     'src'
+});
+    </pre>
+    <br />
+    <h2>Examples</h2>
+    <h3>Load all images in div</h3>
+    <p><a href="#" class="start-example-1">Do it!</a></p>
+    <div class="images">
+      <img data-src="http://farm8.staticflickr.com/7067/7038298347_0481d2a7e3_o.jpg" alt="" />
+      <img data-src="http://farm8.staticflickr.com/7199/7038298927_bfc3993208_b.jpg" alt="" />
+      <img data-src="this-is-an-invalid-image-url" alt="" />
+      <img data-src="http://farm8.staticflickr.com/7094/7038299687_2a558b9349_b.jpg" alt="" />
     </div>
+    <div id="console-example-1" class="console"></div>
+    <script>
+      $(function() {
+        var $console = $('#console-example-1');
 
-    
-  </body>
+        $('.start-example-1').on('click', function(event){
+          event.preventDefault();
+
+          if ( $(this).hasClass('clicked') ) {
+            return;
+          } else {
+            $(this).addClass('clicked');
+          }
+
+          $('.images').loadImages({
+            imgLoadedClb: function(){
+              $console.append( $('<div></div>').text("[image loaded] " + $(this).data('src')) );
+            },
+            allLoadedClb: function(){
+              $console.append( $('<div></div>').text("[all images loaded] " + $(this).attr('class')) );
+            },
+            imgErrorClb:  function(){
+              $console.append( $('<div class="error"></div>').text("[image error] " + $(this).data('src')) );
+            },
+            noImgClb:     function(){
+              $console.append( $('<div class="error"></div>').text("[no valid images found] " + $(this).attr('class')) );
+            }
+          });
+
+        });
+
+      });
+    </script>
+  </div>
+  <footer>
+    Created by <a href="http://mrhenry.be">Mr. Henry</a>.
+  </footer>
+
+  <a href="https://github.com/mrhenry/jquery-image-loader"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+</body>
 </html>
