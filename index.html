@@ -173,7 +173,9 @@ a.data("failed_count")+1),b(this).unbind("load"),b.isFunction(f.imgErrorClb)&&f.
     <br />
     <h2>Examples</h2>
     <h3>Load all images in div</h3>
-    <p><a href="#" class="start-example-1">Do it!</a></p>
+    <p><a href="#" class="start-example-1">Image Loading Test!!!</a></p>
+    <p><a href="http://talk2bala.github.io/ImageLoaderTest/PlainPage.html" target="PlainPageFrame" class="start-example-2" onclick="StartTime()">Plain Page Loading!!!</a></p>
+    <p><a href="#" class="start-example-3">Embedded Link Page!!!</a></p>    
     <div class="images">
       <img data-src="http://farm3.static.flickr.com/2786/4096957892_756a988214_o.jpg?some=some" alt="" />
       <img data-src="http://namethatplant.files.wordpress.com/2010/09/watermark_35.jpg?some=some" alt="" />
@@ -217,6 +219,26 @@ a.data("failed_count")+1),b(this).unbind("load"),b.isFunction(f.imgErrorClb)&&f.
 
       });
     </script>
+  </div>
+  
+  <div id="console-example-2" class="console2"></div>
+	<iframe name="PlainPageFrame" width=600 height=600 onload="EndTime()">
+		<p>Your browser does not support iframes.</p>
+	</iframe>
+    <script>
+	function StartTime()
+	{
+		var y = new Date();
+        var $console = $('#console-example-2');
+	    $console.append( $('<div></div>').text("[Clicked @ " + y ) );		
+	}
+	function EndTime()
+	{
+		var x = new Date();
+        var $console = $('#console-example-2');
+	    $console.append( $('<div></div>').text("[Loading Ended @ " + x ) );		
+	}		
+    </script>	
   </div>
 
 
