@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Plain Page</title>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <h1>Image Loader Test</h1>
+    <p>Load images asynchronously with ease. This plugin seeks for all images with <em>data-src</em> attributes inside a wrapper or run the plugin on an image tag itself.
+    </p>
+    <p>The <em>data</em> attribute will be copied to the <em>src</em> attribute, which gives you loading & error events to streamline your flow.</p>
+    <h2>Callbacks</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>callback</th>
+          <th>description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><em>imgLoadedClb</em></td>
+          <td>Triggered when an image is loaded. ('this' is the loaded image)</td>
+        </tr>
+        <tr>
+          <td><em>allLoadedClb</em></td>
+          <td>Triggered when all images are loaded. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
+        </tr>
+        <tr>
+          <td><em>imgErrorClb</em></td>
+          <td>Triggered when the image gives an error. Useful when you want to add a placeholder instead or remove it. ('this' is the loaded image)</td>
+        </tr>
+        <tr>
+          <td><em>noImgClb</em></td>
+          <td>Triggered when there are no image found with data-src attributes, or when all images give an error. ('this' is the wrapper in which all images are loaded, or the image if you ran it on one image)</td>
+        </tr>
+        <tr>
+          <td><em>dataAttr</em></td>
+          <td>The data attribute that contains the source. Default 'src'.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>How to use?</h2>
+    <h3>HTML</h3>
+    <pre>
+&lt;div class=&quot;images&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+  &lt;img data-src=&quot;link-to-image.jpg&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;</pre>
+    <h3>Javascript to load images inside wrapper</h3>
+    <pre>
+$('.images').loadImages({
+  imgLoadedClb: function(){},
+  allLoadedClb: function(){},
+  imgErrorClb:  function(){},
+  noImgClb:     function(){},
+  dataAttr:     'src'
+});</pre>
+    <h3>Javascript to load one image</h3>
+    <pre>
+$('.images img').first().loadImages({
+  imgLoadedClb: function(){},
+  allLoadedClb: function(){},
+  imgErrorClb:  function(){},
+  noImgClb:     function(){},
+  dataAttr:     'src'
+});
+    </pre>
+</body>
+</html>
