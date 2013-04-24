@@ -254,13 +254,13 @@ a.data("failed_count")+1),b(this).unbind("load"),b.isFunction(f.imgErrorClb)&&f.
 	function StartTime()
 	{
 		tim = new Date();
-        var $console = $('#console-example-2');
+        var $console = $('#console-example-3');
 	    $console.append( $('<div></div>').text("[Clicked @ " + tim ) );		
 	}
 	function EndTime()
 	{
 		var x = new Date();
-        var $console = $('#console-example-2');
+        var $console = $('#console-example-3');
 	    $console.append( $('<div></div>').text("[Loading Ended @ " + x ) );		
 		$console.append( $('<div></div>').text("[Loading Time = " + Math.abs(x-tim) ) );		
 	}		
